@@ -1,5 +1,5 @@
 {
-  "name": "json-search-js",
+  "name": "cli-search",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Michael Lai <michaeljin.lai@gmail.com>",
