@@ -56,3 +56,17 @@ The relationships file define which field is a `foreignKey` to which entity, all
 ### CLI
 
 I used `readline` to stream inputs to `SearchApplication` and display prompts to the user.
+
+## Sample outputs
+
+### Results
+
+![image](https://user-images.githubusercontent.com/14230725/124922920-4fb7bb00-e03d-11eb-8282-c61216f88c27.png)
+
+### No results
+
+![image](https://user-images.githubusercontent.com/14230725/124923095-783fb500-e03d-11eb-9549-ad7bd06fed54.png)
+
+### Searchable fields
+
+![image](https://user-images.githubusercontent.com/14230725/124923182-8c83b200-e03d-11eb-8da9-c0f52f8b8490.png)
