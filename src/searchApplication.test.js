@@ -1,6 +1,7 @@
-import { configs } from './configs';
+import { usersSchema } from './schemas/usersSchema';
+import { ticketsSchema } from './schemas/ticketsSchema';
 import { relationships } from './schemas/relationships';
-import { makeFileReader, readSource, validateSource } from './utils/fileReader';
+import { makeFileReader } from './utils/fileReader';
 import { generateIndexes } from './utils/generateIndexes';
 import { INVALID_OPTION, INVALID_TERM } from './constants/messages';
 import SearchRepository from './services/searchRepository';
@@ -14,8 +15,77 @@ const logger = {
   log: logMock,
   error: errorMock,
 };
-const fileReader = makeFileReader({ validateSource, readSource, logger });
-const indexes = generateIndexes({ fileReader, logger })(configs);
+
+const usersSourcePath = 'usersSourcePath';
+const ticketsSourcePath = 'ticketsSourcePath';
+
+const configs = [
+  {
+    name: 'users',
+    sourcePath: usersSourcePath,
+    schema: usersSchema,
+  },
+  {
+    name: 'tickets',
+    sourcePath: ticketsSourcePath,
+    schema: ticketsSchema,
+  },
+];
+
+const validateSourceMock = () => true;
+const readSourceMock = (path) => {
+  if (path === usersSourcePath) {
+    return users;
+  }
+  if (path === ticketsSourcePath) {
+    return tickets;
+  }
+  return null;
+};
+
+const fileReaderMock = makeFileReader({
+  validateSource: validateSourceMock,
+  readSource: readSourceMock,
+  logger,
+});
+
+const tickets = [
+  {
+    _id: '436bf9b0-1147-4c0a-8439-6f79833bff5b',
+    created_at: '2016-04-28T11:19:34-10:00',
+    type: 'incident',
+    subject: 'A Catastrophe in Korea (North)',
+    assignee_id: 24,
+    tags: ['Ohio', 'Pennsylvania'],
+  },
+  {
+    _id: '1a227508-9f39-427c-8f57-1b72f3fab87c',
+    created_at: '2016-04-14T08:32:31-10:00',
+    type: 'incident',
+    subject: 'A Catastrophe in Micronesia',
+    assignee_id: 38,
+    tags: ['Puerto Rico', 'Idaho'],
+  },
+];
+
+const users = [
+  {
+    _id: 24,
+    name: 'Harris Côpeland',
+    created_at: '2016-03-02T03:35:41-11:00',
+    verified: false,
+  },
+  {
+    _id: 38,
+    name: 'Elma Castro',
+    created_at: '2016-01-31T02:46:05-11:00',
+    verified: false,
+  },
+];
+
+const indexes = generateIndexes({ fileReader: fileReaderMock, logger })(
+  configs
+);
 const searchRepository = new SearchRepository({
   indexes,
   relationships,
@@ -188,14 +258,14 @@ describe('SearchApplication', () => {
         searchApplication,
         'displayResults'
       );
-      searchApplication.onCommand('1');
+      searchApplication.onCommand('38');
       expect(displayResultsMock).toHaveBeenCalledWith([
         {
-          _id: 1,
-          created_at: '2016-04-15T05:19:46-10:00',
-          name: 'Francisca Rasmussen',
-          tickets: ['A Problem in Russian Federation', 'A Problem in Malawi'],
-          verified: true,
+          _id: 38,
+          name: 'Elma Castro',
+          created_at: '2016-01-31T02:46:05-11:00',
+          verified: false,
+          tickets: ['A Catastrophe in Micronesia'],
         },
       ]);
     });
