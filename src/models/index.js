@@ -83,7 +83,9 @@ class Index {
   };
 
   validateSchema = () => {
-    const schemaItemsWithPrimaryKey = Object.values(this.schema).filter(({ primaryKey }) => primaryKey === true);
+    const schemaItemsWithPrimaryKey = Object.values(this.schema).filter(
+      ({ primaryKey }) => primaryKey === true
+    );
     return schemaItemsWithPrimaryKey.length === 1;
   };
 }

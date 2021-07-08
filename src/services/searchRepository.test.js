@@ -140,7 +140,7 @@ describe('IndexGenerator', () => {
         searchRepository.getItem({
           index,
           searchTerm: 'name',
-          value: users[0].name,
+          value: users[0].name.toLowerCase(),
         })
       ).toEqual([users[0]._id]);
     });

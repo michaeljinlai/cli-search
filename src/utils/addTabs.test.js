@@ -1,4 +1,4 @@
-import { addTabs } from "./addTabs";
+import { addTabs } from './addTabs';
 
 describe('addTabs', () => {
   it('should return 3 tabs if the string is less than 7 characters', () => {
