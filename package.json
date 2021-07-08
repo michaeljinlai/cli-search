@@ -1,0 +1,24 @@
+{
+  "name": "json-search-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Michael Lai <michaeljin.lai@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "start": "node -r esm ./src/index.js"
+  },
+  "dependencies": {
+    "esm": "3.2.25"
+  },
+  "devDependencies": {
+    "@babel/core": "7.14.6",
+    "@babel/preset-env": "7.14.7",
+    "babel-jest": "27.0.6",
+    "jest": "27.0.6",
+    "prettier": "2.3.2"
+  },
+  "jest": {
+    "clearMocks": true
+  }
+}
