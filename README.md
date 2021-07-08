@@ -32,7 +32,7 @@ To run all tests:
 yarn test
 ```
 
-## Approach
+## Approach and assumptions
 
 ### Data storage
 
