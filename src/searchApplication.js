@@ -133,9 +133,11 @@ class SearchApplication {
   };
 
   search = ({ indexName, searchTerm, value }) => {
-    this.logger.log(
-      `Searching ${indexName} for ${searchTerm} with a value of ${value}\n`
-    );
+    const message =
+      value === ''
+        ? `Searching ${indexName} for ${searchTerm} with an empty value\n`
+        : `Searching ${indexName} for ${searchTerm} with a value of ${value}\n`;
+    this.logger.log(message);
     return this.searchRepository.searchWithRelationships({
       indexName,
       searchTerm,
